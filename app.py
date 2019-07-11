@@ -14,7 +14,7 @@ app = Flask(__name__)
 db = request_db('db.db')
 
 
-@app.route('/api/lk', methods=['POST', 'GET', 'DELETE', 'UPDATE'])
+@app.route('/', methods=['POST', 'GET', 'DELETE', 'UPDATE'])
 def index():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
