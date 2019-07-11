@@ -16,8 +16,6 @@ db = request_db('db.db')
 
 @app.route('/', methods=['POST', 'GET', 'DELETE', 'UPDATE'])
 def index():
-    if not request.is_json:
-        return jsonify({"msg": "Missing JSON in request"}), 400
     data = request.json
     if request.method == 'POST':
         response = add_note(data)

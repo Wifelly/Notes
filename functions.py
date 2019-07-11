@@ -10,6 +10,8 @@ db = request_db('db.db')
 
 
 def add_note(data):
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
     if ('title' not in data) or ('text' not in data):
         return jsonify({"msg": "Bad request"}), 400
     id = str(uuid.uuid4())
@@ -18,14 +20,30 @@ def add_note(data):
     date_create = int(time.time())
     date_update = date_create
     db.request_insert_five('Notes', 'id, title, text, date_create, date_update', id, title, text, date_create, date_update)
-    return jsonify(id=id), 200
+    return jsonify({"status": "OK"}), 200
 
 
 def get_all_notes(data):
-    return jsonify({"msg": "Not implemented yet"}), 501
+    request = db.request_select('*', 'Notes')
+    response = []
+    for item in request:
+        print(item)
+        response.append(
+            {
+                'id': item[0],
+                'title': item[1],
+                'text': item[2],
+                'date_create': item[3],
+                'date_update': item[4]
+            }
+        )
+    return jsonify(response), 200
+
 
 
 def delete_note(data):
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
     if 'id' not in data:
         return jsonify({"msg": "Bad request"}), 400
     id = data['id']
@@ -34,4 +52,13 @@ def delete_note(data):
 
 
 def update_note(data):
-    return jsonify({"msg": "Not implemented yet"}), 501
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+    if ('id' not in data) or ('title' not in data) or ('text' not in data):
+        return jsonify({"msg": "Bad request"}), 400
+    id = data['id']
+    title = data['title']
+    text = data['text']
+    db.request_update('Notes', 'title', title, 'id', id)
+    db.request_update('Notes', 'text', text, 'id', id)
+    return jsonify({"status": "OK"}), 200
