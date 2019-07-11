@@ -26,7 +26,11 @@ def get_all_notes(data):
 
 
 def delete_note(data):
-    return jsonify({"msg": "Not implemented yet"}), 501
+    if 'id' not in data:
+        return jsonify({"msg": "Bad request"}), 400
+    id = data['id']
+    db.request_delete('Notes', 'id', id)
+    return jsonify({"status": "OK"}), 200
 
 
 def update_note(data):
