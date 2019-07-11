@@ -66,6 +66,14 @@ class request_db(database):
         super().entry_(insert_request)
         return super().read_(f'SELECT id FROM {table} ORDER BY id DESC LIMIT 1')
 
+    def request_insert_five(self, table, fields, value_1, value_2, value_3, value_4, value_5):
+        insert_request = f'''
+        INSERT INTO {table} ({fields})
+         VALUES ('{value_1}', '{value_2}', '{value_3}', '{value_4}', '{value_5}')
+        '''
+        super().entry_(insert_request)
+        return super().read_(f'SELECT id FROM {table} ORDER BY id DESC LIMIT 1')
+
     def request_update(self, table, field_1, value_1, field_2, value_2):
         insert_request = f'''
         UPDATE {table}
