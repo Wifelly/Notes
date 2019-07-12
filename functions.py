@@ -21,12 +21,18 @@ def add_note(data):
         return jsonify({"msg": "Bad request"}), 400
     date_create = int(time.time())
     date_update = date_create
-    db.request_insert('Notes', 'id, title, text, date_create, date_update', id, title, text, date_create, date_update)
+    try:
+        db.request_insert('Notes', 'id, title, text, date_create, date_update', id, title, text, date_create, date_update)
+    except Exception as e:
+        print(e)
     return jsonify({"status": "OK"}), 200
 
 
 def get_all_notes(data):
-    request = db.request_select('*', 'Notes')
+    try:
+        request = db.request_select('*', 'Notes')
+    except Exception as e:
+        print(e)
     response = []
     for item in request:
         print(item)
@@ -48,7 +54,10 @@ def delete_note(data):
     if 'id' not in data:
         return jsonify({"msg": "Bad request"}), 400
     id = data['id']
-    db.request_delete('Notes', 'id', id)
+    try:
+        db.request_delete('Notes', 'id', id)
+    except Exception as e:
+        print(e)
     return jsonify({"status": "OK"}), 200
 
 
@@ -60,6 +69,9 @@ def update_note(data):
     id = data['id']
     title = data['title']
     text = data['text']
-    db.request_update('Notes', 'title', title, 'id', id)
-    db.request_update('Notes', 'text', text, 'id', id)
+    try:
+        db.request_update('Notes', 'title', title, 'id', id)
+        db.request_update('Notes', 'text', text, 'id', id)
+    except Exception as e:
+        print(e)
     return jsonify({"status": "OK"}), 200
