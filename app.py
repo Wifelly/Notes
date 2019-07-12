@@ -14,7 +14,7 @@ app = Flask(__name__)
 db = request_db('db.db')
 
 
-@app.route('/', methods=['POST', 'GET', 'DELETE', 'UPDATE'])
+@app.route('/', methods=['POST', 'GET', 'DELETE', 'PATCH'])
 def index():
     data = request.json
     if request.method == 'POST':
@@ -23,7 +23,6 @@ def index():
         response = get_all_notes(data)
     elif request.method == 'DELETE':
         response = delete_note(data)
-    elif request.method == 'UPDATE':
+    elif request.method == 'PATCH':
         response = update_note(data)
     return response
-

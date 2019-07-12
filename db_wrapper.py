@@ -53,7 +53,7 @@ class request_db(database):
     def request_insert_two(self, table, fields, value_1, value_2):
         insert_request = f'''
         INSERT INTO {table} ({fields})
-         VALUES ('{value_1}', '{value_2}')
+         VALUES ('{value_1}'request_update, '{value_2}')
         '''
         super().entry_(insert_request)
         return super().read_(f'SELECT id FROM {table} ORDER BY id DESC LIMIT 1')
