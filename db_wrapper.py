@@ -35,38 +35,7 @@ class request_db(database):
             '''
         return super().read_(select_request)
 
-    def request_insert(self, table, fields, *values):
-        insert_request = f'''
-        INSERT INTO {table} ({fields})
-        VALUES ({values})
-        '''
-        super().entry_(insert_request)
-        return super().read_(f'SELECT id FROM {table} ORDER BY id DESC LIMIT 1')
-
-    def request_insert_one(self, table, field, value):
-        insert_request = f'''
-        INSERT INTO {table} ({field}) VALUES ('{value}')
-        '''
-        super().entry_(insert_request)
-        return super().read_(f'SELECT id FROM {table} ORDER BY id DESC LIMIT 1')
-
-    def request_insert_two(self, table, fields, value_1, value_2):
-        insert_request = f'''
-        INSERT INTO {table} ({fields})
-         VALUES ('{value_1}'request_update, '{value_2}')
-        '''
-        super().entry_(insert_request)
-        return super().read_(f'SELECT id FROM {table} ORDER BY id DESC LIMIT 1')
-
-    def request_insert_three(self, table, fields, value_1, value_2, value_3):
-        insert_request = f'''
-        INSERT INTO {table} ({fields})
-         VALUES ('{value_1}', '{value_2}', '{value_3}')
-        '''
-        super().entry_(insert_request)
-        return super().read_(f'SELECT id FROM {table} ORDER BY id DESC LIMIT 1')
-
-    def request_insert_five(self, table, fields, value_1, value_2, value_3, value_4, value_5):
+    def request_insert(self, table, fields, value_1, value_2, value_3, value_4, value_5):
         insert_request = f'''
         INSERT INTO {table} ({fields})
          VALUES ('{value_1}', '{value_2}', '{value_3}', '{value_4}', '{value_5}')

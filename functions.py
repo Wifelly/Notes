@@ -21,7 +21,7 @@ def add_note(data):
         return jsonify({"msg": "Bad request"}), 400
     date_create = int(time.time())
     date_update = date_create
-    db.request_insert_five('Notes', 'id, title, text, date_create, date_update', id, title, text, date_create, date_update)
+    db.request_insert('Notes', 'id, title, text, date_create, date_update', id, title, text, date_create, date_update)
     return jsonify({"status": "OK"}), 200
 
 
