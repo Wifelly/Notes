@@ -17,6 +17,8 @@ def add_note(data):
     id = str(uuid.uuid4())
     title = data['title']
     text = data['text']
+    if len(title) > 30 or len(text) > 500:
+        return jsonify({"msg": "Bad request"}), 400
     date_create = int(time.time())
     date_update = date_create
     db.request_insert_five('Notes', 'id, title, text, date_create, date_update', id, title, text, date_create, date_update)
@@ -38,7 +40,6 @@ def get_all_notes(data):
             }
         )
     return jsonify(response), 200
-
 
 
 def delete_note(data):
